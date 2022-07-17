@@ -1,0 +1,74 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Option slide partenaire {{ parent() }}{% endblock %}
+
+{% block body %}
+    {# Messages Flash #}
+    {% for message in app.flashes('success') %}
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable ">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Option Slide partenaire</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        <th>#</th>
+                    {% endif %}
+                    <th>Data_margin</th>
+                    <th>Data_Loop</th>
+                    <th>Data_Nav</th>
+                    <th>Data_autoplay</th>
+                    <th>Data_pagi</th>
+                    <th>Data_items_xs</th>
+                    <th>Data_items_sm</th>
+                    <th>Data_items_md</th>
+                    <th>Data_items_lg</th>
+                    <th>Data_items_xl</th>
+                    <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for opt_slidepartener in opt_slideparteners %}
+                    <tr>
+                        {% if is_granted('ROLE_SUPERADMIN') %}
+                            <td>{{ opt_slidepartener.id }}</td>
+                        {% endif %}
+                        <td>{{ opt_slidepartener.dataMargin }}</td>
+                        <td>{{ opt_slidepartener.dataLoop }}</td>
+                        <td>{{ opt_slidepartener.dataNav }}</td>
+                        <td>{{ opt_slidepartener.dataAutoplay }}</td>
+                        <td>{{ opt_slidepartener.dataPagi }}</td>
+                        <td>{{ opt_slidepartener.dataItemsXs }}</td>
+                        <td>{{ opt_slidepartener.dataItemsSm }}</td>
+                        <td>{{ opt_slidepartener.dataItemsMd }}</td>
+                        <td>{{ opt_slidepartener.dataItemsLg }}</td>
+                        <td>{{ opt_slidepartener.dataItemsXl }}</td>
+                        <td>
+                            <a href="{{ path('admin_optslidepartener_edit', {'id': opt_slidepartener.id}) }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10">Aucune option</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if opt_slideparteners|length==0 %}
+                <a href="{{ path('admin_optslidepartener_new') }}">Ajouter</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

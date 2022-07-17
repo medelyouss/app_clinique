@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('admin_reglement_delete', {'id': reglement.id}) }}"
+      onsubmit="return confirm('Action irreversible, continuer?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reglement.id) }}">
+    <button class="btn btn-xs btn-danger">Supprimer</button>
+</form>

@@ -1,0 +1,88 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Banniere index{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        {# Messages Flash #}
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>
+                        Bannières
+                        <a href="{{ path('admin_banniere_new') }}" class="btn btn-xs btn-primary pull-right">
+                            <i class="fa fa-plus"></i> Nouvelle bannière
+                        </a>
+                    </h2>
+                    {#
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#">Config option 1</a>
+                            </li>
+                            <li><a href="#">Config option 2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                    #}
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Titre visble ?</th>
+                            <th>Image</th>
+                            <th>Active ?</th>
+                            <th>#</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for banniere in bannieres %}
+                            <tr>
+                                <td class="text-navy">{{ banniere.id }}</td>
+                                <td>{{ banniere.title }}</td>
+                                <td>{{ banniere.isTitleVisible ? 'Oui' : 'Non' }}</td>
+                                <td>{{ banniere.image }}</td>
+                                <td>{{ banniere.isActif ? 'Oui' : 'Non' }}</td>
+                                <td>
+                                    <a href="{{ path('admin_banniere_edit', {'id': banniere.id}) }}" class="btn btn-xs btn-warning">
+                                        <i class="fa fa-edit"></i> Modifier
+                                    </a>
+                                    {{ include('admin/banniere/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">Aucun enregistrement!</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Actu sport Image {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {# Messages Flash #}
+            {% for message in app.flashes('success') %}
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable ">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <span class="pull-right">
+                <a href="{{ path('admin_actusport_index') }}" class="btn btn-xs btn-primary">
+                    <i class="fa fa-angle-double-left"></i> Retour à l'actu
+                </a>
+
+                {% if actusport_id != null %}
+                <a href="{{ path('admin_actusportimage_new', {'actusport_id': actusport_id}) }}" class="btn btn-xs btn-primary">
+                    <i class="fa fa-plus"></i> Ajouter
+                </a>
+                {% endif %}
+            </span>
+            <h1>Actu sport Image</h1>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Désignation</th>
+                    <th>Pour la description</th>
+                    <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for actusport_image in actusport_images %}
+                    <tr>
+                        <td>{{ actusport_image.id }}</td>
+                        <td>{{ actusport_image.designation }}</td>
+                        <td>
+                            {% if actusport_image.isFordescription == true %}
+                            <a href="{{ path('admin_imgdescription_description', {id : actusport_image.id }) }}"
+                               class="btn btn-xs btn-primary btn-outline"><i class="fa fa-check text-success"></i> Changer</a>
+                            {% else %}
+                                <a href="{{ path('admin_imgdescription_description', {id : actusport_image.id }) }}"
+                                   class="btn btn-xs btn-danger btn-outline"><i class="fa fa-times text-danger"></i> Changer</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ include('admin/actusport/image/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune image</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

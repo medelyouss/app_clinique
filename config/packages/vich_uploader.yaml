@@ -1,0 +1,16 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        banniere_images:
+            uri_prefix:         '%app.path.banniere_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.banniere_images%'
+
+        #partener_images:
+        #    uri_prefix:         '%app.path.partener_images%'
+        #    upload_destination: '%kernel.project_dir%/public%app.path.partener_images%'
+
+        imgSystem:
+            uri_prefix: '%app.path.imgSystem%'
+            upload_destination: '%kernel.project_dir%/public%app.path.imgSystem%'
+            namer: Vich\UploaderBundle\Naming\OrignameNamer

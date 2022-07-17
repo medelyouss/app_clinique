@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Discipline{% endblock %}
+
+{% block body %}
+    <div class="row">
+
+        <div class="col-lg-12">
+            {# Messages Flash #}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <h1>{{ discipline.designation }}</h1>
+            <a href="{{ path('admin_disciplineactusport_index') }}" class="btn btn-primary btn-xs"><< Retour</a>
+
+            <a href="{{ path('admin_disciplineactusport_edit', {'id': discipline.id}) }}" class="btn btn-xs btn-primary">
+                <i class="fa fa-plus"></i><i class="fa fa-image"></i> Ajouter Images
+            </a>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    {% for image in images %}
+                        <td class="col-md-2">
+                            <div class="ibox">
+                                <div class="ibox-content product-box">
+                                    <img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="img-md">
+                                    {{ include('admin/discipline/imagespardiscipline/_delete_form.html.twig') }}
+                                </div>
+                            </div>
+                        </td>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

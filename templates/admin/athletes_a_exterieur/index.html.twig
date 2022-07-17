@@ -1,0 +1,70 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Athlètes {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            {# Messages Flash #}
+            {% for message in app.flashes('success') %}
+
+                    <div class="alert alert-success alert-dismissable ">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ message }}
+                    </div>
+
+            {% endfor %}
+            <a href="{{ path('admin_athletes_new') }}" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Ajouter </a>
+            <h1>Athlètes à l'extérieur</h1>
+
+            <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Nbr img</th>
+                <th>Affiché</th>
+                <th>Date d'ajout</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for athlete in athletes %}
+            <tr>
+                <td>{{ athlete.id }}</td>
+                <td>{{ athlete.title }}</td>
+                <td>{{ athlete.content | striptags | raw | slice(0, 80) | raw }}</td>
+                <td>
+                    <span class="badge badge-success">{{ athlete.athletesImages |length }}</span>
+                    {#
+                    <a href="" class="btn btn-outline btn-xs btn-primary btn-circle">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    #}
+                </td>
+
+
+                <td>{{ athlete.isDisplayed ? '<strong>Oui</strong>' : 'Non' }}
+                    <a href="{{ path('admin_athletes_displaying', {id : athlete.id}) }}"
+                       class="btn {{ athlete.isDisplayed ? 'btn-success' : 'btn-warning' }} btn-xs btn-circle btn-outline">
+                            <i class="fa fa-refresh"></i>
+                    </a>
+                </td>
+                <td>{{ athlete.createdAt ? athlete.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_athletes_show', {'id': athlete.id}) }}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i> </a>
+                    <a href="{{ path('admin_athletes_edit', {'id': athlete.id}) }}" class="btn btn-xs btn-warning"><i class="fa fa-pencil"></i> </a>
+                    {{ include('admin/athletes_a_exterieur/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun athlète enregistré</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+{% endblock %}

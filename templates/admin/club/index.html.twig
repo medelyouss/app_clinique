@@ -1,0 +1,79 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Clubs {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {# Messages Flash #}
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>Clubs  <a href="{{ path('admin_club_new') }}" class="btn btn-xs btn-primary pull-right">
+                            <i class="fa fa-plus"></i> Ajouter
+                        </a>
+                    </h2>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Île</th>
+                            <th>Sport</th>
+                            <th>Designation</th>
+                            <th>N° tel</th>
+                            <th>Code identification club</th>
+                            <th>Responsable</th>
+                            <th style="width: 10%">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for club in clubs %}
+                            <tr>
+                                <td>{{ club.id }}</td>
+                                <td>{{ club.ile }}</td>
+                                <td>{{ club.discipline }}</td>
+                                <td>{{ club.designation }}</td>
+                                <td>{{ club.numtel }}</td>
+                                <td>{{ club.codeClub }}</td>
+                                <td>{{ club.responsable }}</td>
+                                <td>
+                                    <a href="{{ path('admin_club_show', {'id': club.id}) }}" class="btn btn-xs btn-primary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{{ path('admin_club_edit', {'id': club.id}) }}" class="btn btn-xs btn-warning">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    {{ include('admin/club/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Aucun enregistrement!</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="8">{{ knp_pagination_render(clubs) }}</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

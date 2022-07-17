@@ -1,0 +1,94 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Evenement {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {# Messages Flash #}
+            {% for message in app.flashes('success') %}
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable ">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+            {#===========================================================#}
+
+            <a href="{{ path('admin_evenement_new') }}" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Ajouter evenement</a>
+            <h1>Evenement</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th style="min-width: 20px;">#</th>
+                    <th>Catégorie</th>
+                    <th>Titre</th>
+                    <th>Contenu</th>
+                    <th>Date</th>
+                    <th>Futur</th>
+                    <th>Accueil?</th>
+                    <th>Img de descr?</th>
+                    <th>Nbr Img</th>
+                    <th>Nbr videos</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for evenement in evenements %}
+                    <tr>
+                        <td>{{ evenement.id }}</td>
+                        <td>
+                            <a href="{{ path('admin_evenement_show', {'id': evenement.id}) }}" class="btn btn-xs btn-primary">
+                                <i class="fa fa-eye"></i> </a>
+                            <a href="{{ path('admin_evenement_edit', {'id': evenement.id}) }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i> </a>
+                        </td>
+                        <td>{{ evenement.category }}</td>
+                        <td>
+                            <a href="{{ path('admin_evenement_show', {'id': evenement.id}) }}">
+                                <strong>{{ evenement.title }}</strong>
+                            </a>
+
+                        </td>
+                        <td>{{ evenement.content | striptags | raw | slice(0, 50) | raw }}...</td>
+                        <td>{{ evenement.dateEvenementAt | date('d-m-Y') }}</td>
+                        <td>{{ evenement.evenementFutur ? 'Oui' : 'Non'  }}</td>
+                        <td>{{ evenement.isForhome ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            {% for img_desc in evenement.evenementImages | filter(img_desc => img_desc.isFordescription == 1 ) %}
+                                Oui
+                            {% else %}
+                                Aucune
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <span class="badge badge-success">{{ evenement.evenementImages |length }}</span>
+                            <a href="{{ path('admin_evenementimage_index', {'evenement_id' : evenement.id}) }}" class="btn btn-xs btn-outline btn-primary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="badge badge-success">{{ evenement.getVideos() |length }}</span>
+                            <a href="{{ path('admin_evenementvideo_index', {'evenement_id' : evenement.id}) }}" class="btn btn-xs btn-outline btn-primary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">Aucun enregistrement</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+{% endblock %}

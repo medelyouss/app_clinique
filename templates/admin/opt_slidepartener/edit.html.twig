@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier {{ parent() }}{% endblock %}
+
+{% block body %}
+    <DIV CLASS="row">
+        <div class="col-lg-12">
+            <h1>Modifier les options</h1>
+
+            {{ include('admin/opt_slidepartener/_form.html.twig', {
+                'button_label': 'Modifier'}) }}
+
+
+            <span class="pull-right">
+                <a href="{{ path('admin_optslidepartener_index') }}" class="btn btn-xs btn-primary"><< Retour</a>
+                {{ include('admin/opt_slidepartener/_delete_form.html.twig') }}
+            </span>
+        </div>
+    </DIV>
+
+{% endblock %}

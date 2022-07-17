@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion {{ parent() }}{% endblock %}
+{% block body %}
+
+    <section id="content">
+        <div class="tabs mx-auto " style="max-width: 500px;">
+
+                    <a href="" class="btn btn-rounded" style="background-color: #FD0">Ici je me connecte</a>
+
+                    <a href="{{ path('register') }}" class="btn btn-outline-warning btn-outline">Je m'inscris plutôt !!</a>
+
+                    <div class="tab-container">
+
+                        <div class="tab-content" id="tab-login">
+                            <div class="card mb-0">
+                                <div class="card-body" style="padding: 25px;">
+                                    <form method="post">
+
+                                        {% if error %}
+                                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        {% endif %}
+
+                                        {% if app.user %}
+                                            <div class="mb-3">
+                                                Vous êtes connecté(e) {{ app.user.username }}, <a href="{{ path('auth_logout') }}">Se déconnecter</a>
+                                            </div>
+                                        {% endif %}
+
+                                        {#<h3>Connexion</h3>#}
+
+                                        <div class="row">
+                                            <div class="col-12 form-group">
+                                                <label for="inputEmail" class="m-t-md"><i class="fa fa-user-o"></i> Utilisateur</label>
+                                                <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control p-lg b-r-md" autocomplete="email" required autofocus>
+                                            </div>
+
+                                            <div class="col-12 form-group">
+                                                <label for="inputPassword" class="m-t-md"><i class="fa fa-lock"></i> Mot de passe</label>
+                                                <input type="password" name="password" id="inputPassword" class="form-control p-lg b-r-md" autocomplete="current-password" required>
+                                            </div>
+                                            <input type="hidden" name="_csrf_token"
+                                                   value="{{ csrf_token('authenticate') }}"
+                                            >
+
+                                            {#
+                                                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                                                See https://symfony.com/doc/current/security/remember_me.html
+
+                                                <div class="checkbox mb-3">
+                                                    <label>
+                                                        <input type="checkbox" name="_remember_me"> Remember me
+                                                    </label>
+                                                </div>
+                                            #}
+
+                                            <div class="col-12 form-group">
+                                                <button class="btn btn-warning m-0" type="submit">
+                                                    Se connecter
+                                                </button>
+
+                                                    {% if is_granted('ROLE_SUPERADMIN') %}
+                                                        <a href="#" class="float-right">Mot de passe oublié?</a>
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+    </section>
+
+{% endblock %}

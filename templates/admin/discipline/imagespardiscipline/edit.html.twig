@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Discipline{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+        <h1>Modifier  {{ discipline.designation }}</h1>
+        </div>
+
+        {{ form_start(form) }}
+        <div class="form-group col-sm-12 {% if form_errors(form.fichiersImage) %}has-error{% endif %}">
+            <label>Image(s) <span class="text-danger">*</span></label>
+            {{ form_widget(form.fichiersImage, {
+                'attr' : {
+                    'class' : 'form-control'
+                }
+            }) }}
+            <div class="form-error">
+                <small class="text-danger">{{ form_errors(form.fichiersImage) }}</small>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-info waves-effect waves-light">Enregistrer</button>
+            <a href="{{ path("admin_discipline_index") }}" type="button"
+               class="btn btn-default waves-effect waves-light pull-right">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+        <div class="col-md-12">
+            <a href="{{ path('admin_disciplineactusport_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+        </div>
+    </div>
+{% endblock %}

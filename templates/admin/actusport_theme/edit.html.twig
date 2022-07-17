@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier {{ actusport_theme.designation }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier {{ actusport_theme }}</h1>
+
+    {{ include('admin/actusport_theme/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('admin_actusporttheme_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+    <span class="pull-right">{{ include('admin/actusport_theme/_delete_form.html.twig') }}</span>
+{% endblock %}

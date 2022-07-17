@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Résumé semaine {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Résumé de la semaine</h1>
+
+    {{ include('admin/summaryweek/_form.html.twig') }}
+
+    <a href="{{ path('admin_summaryweek_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+{% endblock %}

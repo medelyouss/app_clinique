@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clinique | Login</title>
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.css') }}" type="text/css" />
+
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+
+</head>
+
+<body class="white-bg">
+
+    <div class="col-md-6 m-t-lg col-lg-offset-3 animated fadeInDown">
+        <div class="ibox">
+            <div class="ibox-content product-box b-r-lg">
+                <div class="product-desc">
+                    <h1 class="h3 mb-3 font-weight-normal col-lg-offset-4">Se conecter</h1>
+                    <form method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+
+                        {% if app.user %}
+                            <div class="mb-3">
+                                Vous êtes connecté(e) {{ app.user.username }}, <a href="{{ path('auth_logout') }}">Se déconnecter</a>
+                            </div>
+                        {% endif %}
+
+                        <label for="inputEmail" class="m-t-md"><i class="fa fa-user-o"></i> Utilisateur</label>
+                        <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control p-lg b-r-md" autocomplete="email" required autofocus>
+
+                        <label for="inputPassword" class="m-t-md"><i class="fa fa-lock"></i> Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control p-lg b-r-md" autocomplete="current-password" required>
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+
+                        {#
+                            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                            See https://symfony.com/doc/current/security/remember_me.html
+
+                            <div class="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" name="_remember_me"> Remember me
+                                </label>
+                            </div>
+                        #}
+
+                        <button class="btn btn-lg btn-primary btn-block m-t-lg" type="submit">
+                            Se connecter
+                        </button>
+                    </form>
+
+                    <p class="m-t text-center"> <small>Mkombé app v1</small> </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+</body>
+
+</html>

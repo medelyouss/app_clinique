@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New QuizzResponse {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Ajouter une réponse possible</h1>
+
+            {{ include('admin/quizz_response/_form.html.twig') }}
+
+            {% if id != null %}
+            <a href="{{ path('admin_quizzquestion_show', {id:id, 'pg_prcdnt': pg_prcdnt, 'id_quizz' : id_quizz }) }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

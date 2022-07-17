@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}category {{ parent() }}{% endblock %}
+
+{% block body %}
+   <div class="row">
+       <div class="col-lg-12">
+           <h1>Ajouter une catégorie</h1>
+
+           {{ include('admin/evenement/category/_form.html.twig') }}
+
+           <a href="{{ path('admin_evenementcategory_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+       </div>
+   </div>
+{% endblock %}

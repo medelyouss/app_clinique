@@ -1,0 +1,75 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New Parteners{% endblock %}
+
+{% block body %}
+
+    <div class="row col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-md-12">
+            <h1>Ajouter un partenaire</h1>
+            </div>
+
+            {{ form_start(form) }}
+            <div class="form-group col-sm-9 {% if form_errors(form.designation) %}has-error{% endif %}">
+                <label>Désignation <span class="text-danger">*</span></label>
+                {{ form_widget(form.designation, {
+                    'attr' : {
+                        'class' : 'form-control',
+                        'placeholder' : "Désignation"
+                    }
+                }) }}
+                <div class="form-error">
+                    <small class="text-danger">{{ form_errors(form.designation) }}</small>
+                </div>
+            </div>
+            <div class="form-group col-sm-3 {% if form_errors(form.isActif) %}has-error{% endif %} pull-left">
+                <label class="text-center">Cochez si Actif <span class="text-danger">*</span></label>
+                {{ form_widget(form.isActif, {
+                    'attr' : {
+                        'class' : 'form-control',
+                    },
+                    'label' : false
+                }) }}
+                <div class="form-error">
+                    <small class="text-danger">{{ form_errors(form.isActif) }}</small>
+                </div>
+            </div>
+            <div class="form-group col-sm-9 {% if form_errors(form.url) %}has-error{% endif %}">
+                <label>URL <span class="text-muted">*</span></label>
+                {{ form_widget(form.url, {
+                    'attr' : {
+                        'class' : 'form-control',
+                        'placeholder' : "URL"
+                    }
+                }) }}
+                <div class="form-error">
+                    <small class="text-danger">{{ form_errors(form.url) }}</small>
+                </div>
+            </div>
+            <div class="form-group col-sm-3 {% if form_errors(form.imageFile) %}has-error{% endif %}">
+                <label>Image<span class="text-danger">*</span></label>
+                {{ form_widget(form.imageFile, {
+                    'attr' : {
+                        'class' : 'form-control',
+                    }
+                }) }}
+                <div class="form-error">
+                    <small class="text-danger">{{ form_errors(form.imageFile) }}</small>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-info waves-effect waves-light">Enregistrer</button>
+                <a href="{{ path("admin_parteners_index") }}" type="button"
+                   class="btn btn-default waves-effect waves-light pull-right">Annuler</a>
+            </div>
+            {{ form_end(form) }}
+
+            <span class="m-l-md">
+                <a href="{{ path('admin_parteners_index') }}" class="btn btn-xs btn-primary m-t-xl"><< Retour</a>
+            </span>
+        </div>
+    </div>
+{% endblock %}

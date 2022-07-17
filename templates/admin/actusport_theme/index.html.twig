@@ -1,0 +1,58 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Theme sport {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Themes</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {# Messages Flash #}
+            {% for message in app.flashes('success') %}
+                <div class="col-lg-12">
+                    <div class="alert alert-success alert-dismissable ">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a href="{{ path('admin_actusport_index') }}" class="btn btn-xs btn-primary">
+                <i class="fa fa-angle-double-left"></i> Actualité Sport
+            </a>
+            <span class="pull-right">
+            <a href="{{ path('admin_actusporttheme_new') }}" class="btn btn-xs btn-primary">
+                <i class="fa fa-plus"></i> Ajouter un thème
+            </a>
+            </span>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Designation</th>
+                    <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for actusport_theme in actusport_themes %}
+                    <tr>
+                        <td>{{ actusport_theme.id }}</td>
+                        <td>{{ actusport_theme.designation }}</td>
+                        <td>
+                            <a href="{{ path('admin_actusporttheme_edit', {'id': actusport_theme.id}) }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-edit"></i> Modifier</a>
+                            {{ include('admin/actusport_theme/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucun enregistrment!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajout Quizz Categorie {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle Categorie</h1>
+
+    {{ include('admin/quizz_category/_form.html.twig') }}
+
+    <a href="{{ path('admin_quizzcategory_index') }}" class="btn btn-primary btn-sm m-t-lg"><< Retour</a>
+{% endblock %}

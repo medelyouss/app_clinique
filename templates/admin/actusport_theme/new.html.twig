@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New ActusportTheme{% endblock %}
+
+{% block body %}
+   <div class="row">
+       <div class="col-lg-12">
+           <h1>Create new ActusportTheme</h1>
+
+           {{ include('admin/actusport_theme/_form.html.twig') }}
+
+           <a href="{{ path('admin_actusporttheme_index') }}"><< Retour</a>
+       </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Reglement index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {# Messages Flash #}
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-lg-12">
+            {% if reglements | length == 0 %}
+                <span class="pull-right"><a href="{{ path('admin_reglement_new') }}" class="btn btn-primary btn-xs">Créer</a></span>
+            {% endif %}
+            <h1>Reglement</h1>
+
+            <table class="table">
+                <tbody>
+                {% for reglement in reglements %}
+                    <tr>
+                        <th style="min-width: 150px;">Id</th>
+                        <td>{{ reglement.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Contenu</th>
+                        <td>{{ reglement.content }}</td>
+                    </tr>
+                    <tr>
+                        <th>Url Officielle</th>
+                        <td>{{ reglement.urlOfficielle ? reglement.urlOfficielle : "<span class='text-danger'>Aucune URL entrée!</span>" }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <span class="pull-right">
+                                <a href="{{ path('admin_reglementimages_index') }}" class="btn btn-xs btn-primary">
+                                <i class="fa fa-eye"></i> Voir toutes les images ({{ reglement.reglementImages | length }})
+                                </a>
+                            </span>
+                            <a href="{{ path('admin_reglement_edit', {'id': reglement.id}) }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-edit"></i> Modifier
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Aucun enregistrement!</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

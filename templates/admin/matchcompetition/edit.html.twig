@@ -1,0 +1,128 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Score Match {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>Score Match</h1>
+                </div>
+
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group col-sm-3 {% if form_errors(form.ile) %}has-error{% endif %}">
+                        <label>Île <span class="text-danger">*</span></label>
+                        {{ form_widget(form.ile, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Désignation"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.ile) }}</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 {% if form_errors(form.discipline) %}has-error{% endif %}">
+                        <label>Discipline <span class="text-danger">*</span></label>
+                        {{ form_widget(form.discipline, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Désignation"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.discipline) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3 {% if form_errors(form.lieu) %}has-error{% endif %}">
+                        <label>Lieu <span class="text-muted">*</span></label>
+                        {{ form_widget(form.lieu, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Lieu"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.lieu) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3 {% if form_errors(form.dateMatchAt) %}has-error{% endif %}">
+                        <label>Date <span class="text-muted">*</span></label>
+                        {{ form_widget(form.dateMatchAt, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.dateMatchAt) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3 {% if form_errors(form.club1) %}has-error{% endif %}">
+                        <label>Club 1 <span class="text-danger">*</span></label>
+                        {{ form_widget(form.club1, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.club1) }}</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 {% if form_errors(form.scoreClub1) %}has-error{% endif %}">
+                        <label>Score club1 <span class="text-danger">*</span></label>
+                        {{ form_widget(form.scoreClub1, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.scoreClub1) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3 {% if form_errors(form.club2) %}has-error{% endif %}">
+                        <label>Club2 <span class="text-danger">*</span></label>
+                        {{ form_widget(form.club2, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.club2) }}</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 {% if form_errors(form.scoreClub2) %}has-error{% endif %}">
+                        <label>Score club2 <span class="text-danger">*</span></label>
+                        {{ form_widget(form.scoreClub2, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.scoreClub2) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-info waves-effect waves-light">Enregistrer</button>
+                        <a href="{{ path("admin_matchcompetition_index") }}" type="button"
+                           class="btn btn-default waves-effect waves-light pull-right">Annuler</a>
+                    </div>
+                    {{ form_end(form) }}
+
+                    <div class="col-md-12">
+                        <div class="hr-line-dashed"></div>
+                        <a href="{{ path('admin_matchcompetition_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+                        <span class="pull-right m-t-lg"> {{ include('admin/matchcompetition/_delete_form.html.twig') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

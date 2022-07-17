@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier résumé de la semaine{% endblock %}
+
+{% block body %}
+    <h1>Résumé de la semamine</h1>
+
+    {{ include('admin/summaryweek/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('admin_summaryweek_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+    <span class="pull-right">{{ include('admin/summaryweek/_delete_form.html.twig') }}</span>
+{% endblock %}

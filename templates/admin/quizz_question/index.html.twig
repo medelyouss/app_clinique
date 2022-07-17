@@ -1,0 +1,47 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}QuizzQuestion{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+    {# Messages Flash #}
+    {% for message in app.flashes('success') %}
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable ">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <h1>Quizz Question</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quizz_question in quizz_questions %}
+            <tr>
+                <td>{{ quizz_question.id }}</td>
+                <td>{{ quizz_question.question }}</td>
+                <td>
+                    <a href="{{ path('app_quizz_question_show', {'id': quizz_question.id}) }}">show</a>
+                    <a href="{{ path('app_quizz_question_edit', {'id': quizz_question.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {#<a href="{{ path('app_quizz_question_new') }}">Ajouter</a>#}
+    </div>
+{% endblock %}

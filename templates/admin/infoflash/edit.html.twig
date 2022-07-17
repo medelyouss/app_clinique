@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier Actu flash {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Editer Actu flash</h1>
+
+            {{ include('admin/infoflash/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+            <a href="{{ path('admin_infoflash_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+            <span class="pull-right"> {{ include('admin/infoflash/_delete_form.html.twig') }}</span>
+        </div>
+    </div>
+{% endblock %}

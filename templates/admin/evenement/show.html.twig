@@ -1,0 +1,61 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Evenement {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ evenement.title }}
+
+        <span class="pull-right">
+            <a href="{{ path('admin_evenementimage_index', {'evenement_id' : evenement.id}) }}" class="btn btn-xs btn-primary">
+                Voir toutes les images
+            </a>
+            <a href="{{ path('admin_evenementvideo_new', {'evenement_id' : evenement.id}) }}" class="btn btn-xs btn-primary">
+                <i class="fa fa-plus"></i> Ajouter url vidéo
+            </a>
+        </span>
+    </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ evenement.title }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ evenement.content | raw }}</td>
+            </tr>
+            <tr>
+                <th>A l'accueil aussi ?</th>
+                <td>{{ evenement.isForhome ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Nbr images liées</th>
+                <td>{{ evenement.getEvenementImages() | length }}
+                    <a href="{{ path('admin_evenementimage_index', {'evenement_id' : evenement.id}) }}" class="btn btn-xs btn-primary">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Nbr vidéos liées</th>
+                <td>{{ evenement.getVideos() | length }}
+                    <a href="{{ path('admin_evenementvideo_index', {'evenement_id':evenement.id}) }}" class="btn btn-xs btn-primary">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_evenement_index') }}" class="btn btn-xs btn-primary"><< Retour</a>
+
+    <a href="{{ path('admin_evenement_edit', {'id': evenement.id}) }}" class="btn btn-xs btn-warning">Modifier</a>
+
+    <span class="pull-right"> {{ include('admin/evenement/_delete_form.html.twig') }}</span>
+{% endblock %}

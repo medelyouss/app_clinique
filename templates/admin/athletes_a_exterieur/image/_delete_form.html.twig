@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('admin_athletesimage_delete', {'id': image.id}) }}"
+      onsubmit="return confirm('Action irreversible, continuer?');" style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ image.id) }}">
+    <button class="btn btn-xs btn-danger btn-circle btn-outline"><i class="fa fa-trash"></i> </button>
+</form>

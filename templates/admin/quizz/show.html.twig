@@ -1,0 +1,133 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Quizz {{ quizz.designation }} {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('medel_assets/admin/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+
+{% block body %}
+    <div class="row">
+        {# Messages Flash #}
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="col-lg-12">
+            <h1>Quizz #{{ quizz.id }}</h1>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Designation</th>
+                        <td>{{ quizz.designation }}</td>
+                    </tr>
+                    <tr>
+                        <th>Content</th>
+                        <td>{{ quizz.content }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a href="{{ path('admin_quizz_index') }}" class="btn btn-xs btn-primary"><< Retour</a>
+
+            <a href="{{ path('admin_quizz_edit', {'id': quizz.id}) }}" class="btn btn-xs btn-warning">
+                <i class="fa fa-edit"></i> Modifier
+            </a>
+            <a href="{{ path('admin_quizzquestion_new', {id: quizz.id, 'pg_prcdnt':'admin_quizz_show'}) }}" class="btn btn-xs btn-primary">
+                <i class="fa fa-question-circle-o"></i> Ajouter une question
+            </a>
+            <span class="pull-right">
+                {{ include('admin/quizz/_delete_form.html.twig') }}
+            </span>
+        </div>
+    </div>
+
+
+    <div class="row">
+    <div class="hr-line-dashed"></div>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>Questions du Quizz  <a href="{{ path('admin_quizzquestion_new', {id: quizz.id, 'pg_prcdnt':'admin_quizz_show'}) }}" class="btn btn-xs btn-primary pull-right">
+                            <i class="fa fa-plus"></i> Ajouter une question
+                        </a>
+                    </h2>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="footable table table-hover table-stripped toggle-arrow-tiny">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Questions</th>
+                            <th data-hide="all"></th>
+                            <th>Nbr réponses</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for quizz_question in questions %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ quizz_question.question }}</td>
+
+                                <td>
+                                    {% for response in quizz_question.responses %}
+                                        <div>
+                                        <strong>{{ loop.index }}</strong>] {{ response.response }} {{ response.isOk == true ? '<i class="fa fa-check text-success"></i>' : '' }}
+                                        </div>
+                                    {% endfor %}
+                                </td>
+
+                                <td>{{ quizz_question.getResponses() | length }}</td>
+                                <td>
+                                    <a href="{{ path('admin_quizzquestion_edit', {'id': quizz_question.id, 'pg_prcdnt': 'admin_quizz_show', 'id_quizz':quizz.id}) }}"
+                                       class="btn btn-xs btn-warning">
+                                        <i class="fa fa-edit"></i> Modifier la question
+                                    </a>
+
+                                    <a href="{{ path('admin_quizzquestion_show', {'id': quizz_question.id, 'pg_prcdnt': 'admin_quizz_show', 'id_quizz':quizz.id}) }}"
+                                       class="btn btn-xs btn-primary">
+                                        <i class="fa fa-eye"></i> Administrer les réponses
+                                    </a>
+                                    {#{{ include('admin/quizz_question/_delete_form.html.twig') }}#}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">Aucun enregistrement!</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+ {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('medel_assets/admin/js/plugins/footable/footable.all.min.js') }}"></script>
+
+     <script>
+         $(document).ready(function() {
+
+             $('.footable').footable();
+             $('.footable2').footable();
+
+         });
+
+     </script>
+
+ {% endblock %}

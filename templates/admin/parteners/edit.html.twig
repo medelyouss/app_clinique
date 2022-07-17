@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier {{ partener.designation }} {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier {{ partener.designation }}</h1>
+
+    {{ include('admin/parteners/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('admin_parteners_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+    <span class="pull-right">{{ include('admin/parteners/_delete_form.html.twig') }}</span>
+{% endblock %}

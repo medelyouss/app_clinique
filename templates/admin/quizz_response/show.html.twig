@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QuizzResponse{% endblock %}
+
+{% block body %}
+    <h1>QuizzResponse</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quizz_response.id }}</td>
+            </tr>
+            <tr>
+                <th>Response</th>
+                <td>{{ quizz_response.response ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>IsTrue</th>
+                <td>{{ quizz_response.isTrue ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_quizz_response_index') }}">back to list</a>
+
+    <a href="{{ path('app_quizz_response_edit', {'id': quizz_response.id}) }}">edit</a>
+
+    {{ include('quizz_response/_delete_form.html.twig') }}
+{% endblock %}

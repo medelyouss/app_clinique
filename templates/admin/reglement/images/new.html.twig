@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %} Reglement Images {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Ajouter une image</h1>
+
+            {{ include('admin/reglement/images/_form.html.twig') }}
+
+            <a href="{{ path('admin_reglementimages_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+        </div>
+    </div>
+{% endblock %}
