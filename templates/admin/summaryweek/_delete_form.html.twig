@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_summaryweek_delete', {'id': summaryweek.id}) }}"
-      onsubmit="return confirm('Action irreversible, continuer?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ summaryweek.id) }}">
-    <button class="btn btn-xs btn-circle btn-danger"><i class="fa fa-trash"></i> </button>
-</form>

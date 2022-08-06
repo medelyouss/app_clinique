@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_matchcompetition_delete', {'id': matchcompetition.id}) }}"
-      onsubmit="return confirm('Action irreversible, Continuer?');" style="display: inline;">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matchcompetition.id) }}">
-    <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> </button>
-</form>

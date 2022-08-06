@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_optslidepartener_delete', {'id': opt_slidepartener.id}) }}" onsubmit="return
-confirm('Action irreversible, continuer?');" style="display: inline;">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ opt_slidepartener.id) }}">
-    <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Supprimer</button>
-</form>

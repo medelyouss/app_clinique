@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_discipline_delete', {'id': discipline.id}) }}"
-      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer?');" style="display: inline;">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ discipline.id) }}">
-    <button class="btn btn-danger btn-xs btn-outline btn-circle"><i class="fa fa-trash"></i> </button>
-</form>

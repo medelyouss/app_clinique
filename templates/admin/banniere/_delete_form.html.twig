@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_banniere_delete', {'id': banniere.id}) }}" onsubmit="return
-confirm('Êtes-vous sûr de voulir supprimer cette bannière?');" style="display: inline">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ banniere.id) }}">
-    <button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> </button>
-</form>

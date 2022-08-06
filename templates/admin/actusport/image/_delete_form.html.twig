@@ -1,5 +1,0 @@
-<form method="post" action="{{ path('admin_actusportimage_delete', {'id': actusport_image.id}) }}"
-      onsubmit="return confirm('Action irreversible, Continuer?');" style="display: inline;">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ actusport_image.id) }}">
-    <button class="btn btn-xs btn-danger btn-circle"><i class="fa fa-trash"></i> </button>
-</form>
