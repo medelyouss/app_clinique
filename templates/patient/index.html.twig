@@ -1,59 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Patient index{% endblock %}
+{% block title %}Patients {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Patient index</h1>
+    <div class="row">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nomprenom</th>
-                <th>DateNaissanceAt</th>
-                <th>Sexe</th>
-                <th>Domicile</th>
-                <th>Tel</th>
-                <th>Profession</th>
-                <th>NumeroIdentification</th>
-                <th>CreatedAt</th>
-                <th>Observations</th>
-                <th>Etatcivil</th>
-                <th>Situationmaritale</th>
-                <th>Telfix</th>
-                <th>Fonction</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for patient in patients %}
-            <tr>
-                <td>{{ patient.id }}</td>
-                <td>{{ patient.nomprenom }}</td>
-                <td>{{ patient.dateNaissanceAt ? patient.dateNaissanceAt|date('Y-m-d') : '' }}</td>
-                <td>{{ patient.sexe }}</td>
-                <td>{{ patient.domicile }}</td>
-                <td>{{ patient.tel }}</td>
-                <td>{{ patient.profession }}</td>
-                <td>{{ patient.numeroIdentification }}</td>
-                <td>{{ patient.createdAt ? patient.createdAt|date('Y-m-d') : '' }}</td>
-                <td>{{ patient.observations }}</td>
-                <td>{{ patient.etatcivil }}</td>
-                <td>{{ patient.situationmaritale }}</td>
-                <td>{{ patient.telfix }}</td>
-                <td>{{ patient.fonction }}</td>
-                <td>
-                    <a href="{{ path('app_patient_show', {'id': patient.id}) }}">show</a>
-                    <a href="{{ path('app_patient_edit', {'id': patient.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="15">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Liste des dossiers</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9 m-b-xs">
+                            <div data-toggle="buttons" class="btn-group">
+                                <label class="btn btn-sm btn-white">
+                                    <a href="{{ path('app_patient_new') }}"><i class="fa fa-plus"></i> Ajouter un patient </a>
+                                </label>
+                                <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
+                                <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="input-group"><input type="text" placeholder="Recherche..." class="input-sm form-control"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary"> <i class="fa fa-search"></i></button> </span></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
 
-    <a href="{{ path('app_patient_new') }}">Create new</a>
+                                <th>#</th>
+                                <th>Nom Prénom </th>
+                                <th>N° Identification </th>
+                                <th>Sexe </th>
+                                <th>Tel </th>
+                                <th>Date Naissance </th>
+                                <th># </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for patient in patients %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>
+                                    <a href="{{ path('app_patient_show', {id : patient.id}) }}">
+                                        <strong>{{ patient.nomprenom }}</strong>
+                                    </a>
+                                </td>
+                                <td>{{ patient.numeroIdentification }}</td>
+                                <td>{{ patient.sexe == 'm' ? 'Masculin' : 'Feminin' }}</td>
+                                <td>{{ patient.tel }}</td>
+                                <td>{{ patient.dateNaissanceAt |date('d/m/Y') }}</td>
+                                <td>
+                                    <a href="{{ path('app_patient_show', {'id': patient.id}) }}" class="btn btn-circle btn-outline btn-primary">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="{{ path('app_patient_edit', {'id': patient.id}) }}" class="btn btn-circle btn-outline btn-warning">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

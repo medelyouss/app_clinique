@@ -20,24 +20,34 @@ class PatientType extends AbstractType
                 'widget'    => 'single_text',
                 'required'  => true
             ])
-            //->add('sexe')
             ->add('sexe', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'choices' => [
-                    'Masculin'                     => 'm',
+                    'Masculin'                 => 'm',
                     'Feminin'                  => 'f',
                 ],
             ])
             ->add('domicile')
             ->add('tel')
+            ->add('tel2')
             ->add('profession')
             ->add('numeroIdentification')
             //->add('createdAt')
             ->add('observations', CKEditorType::class)
-            ->add('situationmaritale')
-            ->add('telfix')
+            ->add('situationmaritale', ChoiceType::class, [
+                'required' => true,
+                'multiple' => false,
+                'expanded' => false,
+                'choices' => [
+                    'Célibataire'               => 'celibataire',
+                    'Marié(e)'                  => 'Marie-e',
+                    'Veuf(ve)'                  => 'veuf-ve',
+                    'Divorcé(e)'                => 'divorce-e',
+                ],
+            ])
+
         ;
     }
 

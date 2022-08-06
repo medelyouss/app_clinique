@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PatientController extends AbstractController
 {
+
     /**
      * @Route("/", name="app_patient_index", methods={"GET"})
      */
@@ -26,7 +27,7 @@ class PatientController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_patient_new", methods={"GET", "POST"})
+     * @Route("/ajouter", name="app_patient_new", methods={"GET", "POST"})
      */
     public function new(Request $request, PatientRepository $patientRepository): Response
     {
@@ -38,17 +39,19 @@ class PatientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $patientRepository->add($patient, true);
 
+            $this->addFlash('success', 'Opération effectuée avec succès!');
+
             return $this->redirectToRoute('app_patient_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('patient/new.html.twig', [
-            'patient' => $patient,
-            'form' => $form,
+            'patient'   => $patient,
+            'form'      => $form,
         ]);
     }
 
     /**
-     * @Route("/{id}", name="app_patient_show", methods={"GET"})
+     * @Route("/voir/{id}", name="app_patient_show", methods={"GET"})
      */
     public function show(Patient $patient): Response
     {
@@ -58,7 +61,7 @@ class PatientController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_patient_edit", methods={"GET", "POST"})
+     * @Route("/{id}/modifier", name="app_patient_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Patient $patient, PatientRepository $patientRepository): Response
     {
@@ -68,12 +71,16 @@ class PatientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $patientRepository->add($patient, true);
 
-            return $this->redirectToRoute('app_patient_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Modifications effectuées avec succès!');
+
+            return $this->redirectToRoute('app_patient_show', [
+                'id' => $patient->getId()
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('patient/edit.html.twig', [
-            'patient' => $patient,
-            'form' => $form,
+            'patient'       => $patient,
+            'form'          => $form,
         ]);
     }
 

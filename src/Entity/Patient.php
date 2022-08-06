@@ -40,7 +40,7 @@ class Patient
     private $domicile;
 
     /**
-     * @ORM\Column(type="string", length=150, nullable=true)
+     * @ORM\Column(type="string", length=150)
      */
     private $tel;
 
@@ -77,7 +77,7 @@ class Patient
     /**
      * @ORM\Column(type="string", length=180, nullable=true)
      */
-    private $telfix;
+    private $tel2;
 
     public function __construct()
     {
@@ -240,14 +240,14 @@ class Patient
         return $this;
     }
 
-    public function getTelfix(): ?string
+    public function gettel2(): ?string
     {
-        return $this->telfix;
+        return $this->tel2;
     }
 
-    public function setTelfix(?string $telfix): self
+    public function settel2(?string $tel2): self
     {
-        $this->telfix = $telfix;
+        $this->tel2 = $tel2;
 
         return $this;
     }
