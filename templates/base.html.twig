@@ -235,18 +235,18 @@
                     </ul>
                 </li>
 
-                <li class="{{ current_route == 'admin_ile_index' or current_route == 'admin_ile_new'
-                or current_route == 'admin_ile_edit' or current_route == 'admin_ile_show'
+                <li class="{{ current_route == 'app_antecedanttype_index' or current_route == 'app_antecedanttype_new'
+                or current_route == 'app_antecedanttype_edit'
                 or current_route == 'admin_optionsystem_index' or current_route == 'admin_optionsystem_edit' ? 'active' : '' }}">
                     <a href=""><i class="fa fa-cogs"></i> <span class="nav-label">Options système</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li {{ current_route == 'admin_optionsystem_index' or current_route == 'admin_optionsystem_edit' ? 'active' : '' }}>
                             <a href="{#{{ path('admin_optionsystem_index') }}#}">Généralités système</a></li>
 
-                        <li class="{{ current_route == 'admin_ile_index' or current_route == 'admin_ile_new'
-                        or current_route == 'admin_ile_edit' or current_route == 'admin_ile_show' ? 'active' : '' }}">
+                        <li class="{{ current_route == 'app_antecedanttype_index' or current_route == 'app_antecedanttype_new'
+                        or current_route == 'app_antecedanttype_edit' ? 'active' : '' }}">
 
-                            <a href="{#{{ path('admin_ile_index') }}#}">Îles</a></li>
+                            <a href="{{ path('app_antecedanttype_index') }}">Types d'Antécédants</a></li>
                     </ul>
                 </li>
 

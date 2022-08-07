@@ -1,34 +1,89 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cas{% endblock %}
+{% block title %}{{ ca.intitule }}{% endblock %}
 
 {% block body %}
-    <h1>Cas</h1>
+    <div class="row">
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-lg-12">
+        <h1>{{ ca.intitule }}</h1>
+        <table class="table">
+            <tbody>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ca.id }}</td>
-            </tr>
-            <tr>
-                <th>DateDebutCasAt</th>
-                <td>{{ ca.dateDebutCasAt ? ca.dateDebutCasAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Plaintes</th>
-                <td>{{ ca.plaintes }}</td>
-            </tr>
-            <tr>
-                <th>Remarques</th>
-                <td>{{ ca.remarques }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <tr>
+                    <th>Depuis le </th>
+                    <td>{{ ca.dateDebutCasAt ? ca.dateDebutCasAt|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Histoire Maladie</th>
+                    <td>{{ ca.histoireMaladie | raw }}</td>
+                </tr>
+                <tr>
+                    <th>Remarques</th>
+                    <td>{{ ca.remarques ? ca.remarques : 'Aucune remarque' }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_cas_index') }}">back to list</a>
+        <a href="{{ path('app_patient_show', { id : ca.patient.id}) }}" class="btn btn-sm btn-success">
+            << <i class="fa fa-user"></i> Patient </a>
 
-    <a href="{{ path('app_cas_edit', {'id': ca.id}) }}">edit</a>
+        <a href="{{ path('app_cas_edit', {'id': ca.id}) }}" class="btn btn-xs btn-warning btn-circle btn-outline"><i class="fa fa-pencil"></i> </a>
 
-    {{ include('cas/_delete_form.html.twig') }}
+        <span class="pull-right">{{ include('cas/_delete_form.html.twig') }}</span>
+    </div>
+
+
+        <div class="col-lg-12 m-t-lg">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Visites liées à ce cas </h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+
+                                <th>#</th>
+                                <th>Motif </th>
+                                <th>Interro </th>
+                                <th>Examen </th>
+                                <th>Conclusion </th>
+                                <th>Date </th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for visite in ca.getVisites() %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ visite.motif }}</td>
+                                <td>{{ visite.interrogatoire | raw }}</td>
+                                <td>{{ visite.examen | raw }}</td>
+                                <td>{{ visite.conclusion | raw }}</td>
+                                <td>{{ visite.dateVisiteAt | date('d-m-Y') }}</td>
+                                <td>
+                                    <a href="{{ path('app_visite_edit', { id : visite.id, 'id_cas' : visite.cas.id}) }}" class="btn btn-xs btn-circle btn-warning btn-outline">
+                                        <i class="fa fa-pencil text-navy"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}

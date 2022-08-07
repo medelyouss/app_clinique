@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Type Antecedant {{ parent() }} {% endblock %}
+
+{% block body %}
+    <h1>Nouveau Type Antecedant </h1>
+
+    {{ include('_includes/_form.html.twig') }}
+
+    <a href="{{ path('app_antecedanttype_index') }}" class="btn btn-sm btn-primary m-t-lg"><< Retour</a>
+{% endblock %}

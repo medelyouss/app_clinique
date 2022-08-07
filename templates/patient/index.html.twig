@@ -4,7 +4,14 @@
 
 {% block body %}
     <div class="row">
-
+        {% for message in app.flashes('success') %}
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable ">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -65,6 +72,10 @@
                                     </a>
                                 </td>
                             </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="7">Aucun enregistrement</td>
+                                </tr>
                             {% endfor %}
                             </tbody>
                         </table>

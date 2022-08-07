@@ -42,6 +42,7 @@ class CasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $casRepository->add($ca, true);
 
+            $this->addFlash('success', 'Ajout effectué avec succès');
             return $this->redirectToRoute('app_patient_show', [
                 'id' => $ca->getPatient()->getId()
             ], Response::HTTP_SEE_OTHER);

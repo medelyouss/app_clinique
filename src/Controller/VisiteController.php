@@ -83,6 +83,11 @@ class VisiteController extends AbstractController
 
             $this->addFlash('success', 'Modifications effectuées avec succès!');
 
+            if ($request->get('id_cas')){
+                return $this->redirectToRoute('app_cas_show', [
+                    'id' => $visite->getCas()->getId()
+                ], Response::HTTP_SEE_OTHER);
+            }
             return $this->redirectToRoute('app_patient_show', [
                 'id' => $visite->getCas()->getPatient()->getId()
             ], Response::HTTP_SEE_OTHER);

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Patient{% endblock %}
+{% block title %}{{ patient }} {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -122,7 +122,7 @@
                             </a>
                         </div>
                         <div class="col-xs-7 content no-top-border">
-                            <p class="m-b-xs"><strong>{{ ca.intitule }}</strong> -
+                            <p class="m-b-xs"><a href="{{ path('app_cas_show', {id:ca.id}) }}"><strong>{{ ca.intitule }}</strong></a> -
                                 <a href="{{ path('app_visite_new', {'id_cas': ca.id}) }}" class="btn btn-xs btn-outline btn-success">
                                     Commencer une visite
                                 </a>

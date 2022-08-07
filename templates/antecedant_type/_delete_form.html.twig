@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_antecedanttype_delete', {'id': antecedant_type.id}) }}"
+      onsubmit="return confirm('Supprimer le patient? Action irreversible!! Continuez?');" style="display: inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ antecedant_type.id) }}">
+    <button class="btn btn-danger btn-xs btn-circle btn-outline"><i class="fa fa-trash"></i></button>
+</form>

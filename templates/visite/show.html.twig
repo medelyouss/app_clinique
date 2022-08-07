@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Visite{% endblock %}
+{% block title %}Visite {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1>Visite</h1>
@@ -17,26 +17,27 @@
             </tr>
             <tr>
                 <th>Interrogatoire</th>
-                <td>{{ visite.interrogatoire }}</td>
+                <td>{{ visite.interrogatoire | raw }}</td>
             </tr>
             <tr>
                 <th>Examen</th>
-                <td>{{ visite.examen }}</td>
+                <td>{{ visite.examen | raw }}</td>
             </tr>
             <tr>
                 <th>Conclusion</th>
-                <td>{{ visite.conclusion }}</td>
+                <td>{{ visite.conclusion | raw }}</td>
             </tr>
             <tr>
                 <th>DateVisiteAt</th>
-                <td>{{ visite.dateVisiteAt ? visite.dateVisiteAt|date('Y-m-d') : '' }}</td>
+                <td>{{ visite.dateVisiteAt ? visite.dateVisiteAt|date('d-m-Y') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_visite_index') }}">back to list</a>
+    <a href="{{ path('app_patient_show', {id : visite.cas.patient.id}) }}" class="btn btn-xs btn-success"><< <i class="fa fa-user"></i> Patient</a>
 
-    <a href="{{ path('app_visite_edit', {'id': visite.id}) }}">edit</a>
-
-    {{ include('visite/_delete_form.html.twig') }}
+    <a href="{{ path('app_visite_edit', {'id': visite.id}) }}" class="btn btn-xs btn-circle btn-warning"><i class="fa fa-pencil"></i></a>
+    <span class="pull-right">
+        {{ include('visite/_delete_form.html.twig') }}
+    </span>
 {% endblock %}

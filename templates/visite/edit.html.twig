@@ -1,13 +1,115 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Visite{% endblock %}
+{% block title %}Modifier {{ visite.motif }} {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Visite</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1>Modifier <small>{{ visite.motif }}</small></h1>
+                </div>
 
-    {{ include('visite/_form.html.twig', {'button_label': 'Update'}) }}
+                <div class="panel-body">
+                    {{ form_start(form) }}
 
-    <a href="{{ path('app_visite_index') }}">back to list</a>
+                    <div class="col-sm-4 m-t-lg">
+                        <strong>{{ visite.cas.patient }}</strong>, Dans le cadre du cas de
+                    </div>
+                    <div class="form-group col-sm-4 {% if form_errors(form.cas) %}has-error{% endif %}">
 
-    {{ include('visite/_delete_form.html.twig') }}
+                        <label>Cas <span class="text-danger">*</span></label>
+                        {{ form_widget(form.cas, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Cas"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.cas) }}</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>En date du <span class="text-danger">*</span></label>
+                        {{ form_widget(form.dateVisiteAt, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.dateVisiteAt) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12 {% if form_errors(form.motif) %}has-error{% endif %}">
+                        <label>Motif <span class="text-danger">*</span></label>
+                        {{ form_widget(form.motif, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Motif"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.motif) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6 {% if form_errors(form.interrogatoire) %}has-error{% endif %}">
+                        <label>Interrogatoire <span class="text-danger">*</span></label>
+                        {{ form_widget(form.interrogatoire, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.interrogatoire) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6 {% if form_errors(form.examen) %}has-error{% endif %}">
+                        <label>Examen <span class="text-danger">*</span></label>
+                        {{ form_widget(form.examen, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.examen) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12 {% if form_errors(form.conclusion) %}has-error{% endif %}">
+                        <label>Conclusion <span class="text-danger">*</span></label>
+                        {{ form_widget(form.conclusion, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.conclusion) }}</small>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-save"></i> Enregistrer</button>
+                        <a href="{{ path("app_patient_index") }}" type="button"
+                           class="btn btn-default waves-effect waves-light pull-right">Annuler</a>
+                    </div>
+                    {{ form_end(form) }}
+
+                    <div class="col-md-12">
+
+                            <a href="{{ path('app_patient_show', {id: visite.cas.patient.id }) }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+                        <span class="pull-right">
+                            {{ include('visite/_delete_form.html.twig') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+

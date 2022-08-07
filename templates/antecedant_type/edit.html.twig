@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Type Antecedant {% endblock %}
+
+{% block body %}
+    <h1>Edit Type Antecedant </h1>
+
+    {{ include('antecedant_type/_form.html.twig', {'button_label': 'Valider les modifications'}) }}
+
+    <a href="{{ path('app_antecedanttype_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+
+    <span class="pull-right">
+        {{ include('_includes/_delete_form.html.twig') }}
+    </span>
+{% endblock %}
