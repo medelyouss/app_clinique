@@ -55,11 +55,6 @@ class Patient
     private $numeroIdentification;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $observations;
@@ -79,10 +74,32 @@ class Patient
      */
     private $tel2;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cas::class, mappedBy="patient", orphanRemoval=true)
+     */
+    private $cas;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->consultations = new ArrayCollection();
         date_default_timezone_set("Africa/Dar_es_Salaam");
+        $this->cas = new ArrayCollection();
+    }
+    public function __toString()
+    {
+        return (string) $this->getNumeroIdentification().''.$this->getNomprenom();
+    }
+
+    public function getAge()
+    {
+        $from = new \DateTime($this->dateNaissanceAt ? $this->dateNaissanceAt->format(('Y-m-d')):'');
+        $to   = new \DateTime('today');
+        return $from->diff($to)->y;
     }
 
     public function getId(): ?int
@@ -174,18 +191,6 @@ class Patient
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getObservations(): ?string
     {
         return $this->observations;
@@ -248,6 +253,48 @@ class Patient
     public function settel2(?string $tel2): self
     {
         $this->tel2 = $tel2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cas>
+     */
+    public function getCas(): Collection
+    {
+        return $this->cas;
+    }
+
+    public function addCa(Cas $ca): self
+    {
+        if (!$this->cas->contains($ca)) {
+            $this->cas[] = $ca;
+            $ca->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCa(Cas $ca): self
+    {
+        if ($this->cas->removeElement($ca)) {
+            // set the owning side to null (unless already changed)
+            if ($ca->getPatient() === $this) {
+                $ca->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

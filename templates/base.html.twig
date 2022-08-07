@@ -125,35 +125,13 @@
                         or current_route == "admin_evenementvideo_new"
                         or current_route == "admin_evenementvideo_edit" and app.request.get('for_home') == true %}active{% endif %}" >
                             <a href="">Vidéos</a></li>
-                        {#
-                        <li><a href="">Projects</a></li>
-                        <li><a href="">Project detail</a></li>
-                        <li><a href="">Activity stream</a></li>
-                        <li><a href="">Teams board</a></li>
-                        <li><a href="">Social feed</a></li>
-                        <li><a href="">Clients</a></li>
-                        <li><a href="">Outlook view</a></li>
-                        <li><a href="">Vote list</a></li>
-                        <li><a href="">File manager</a></li>
-                        <li><a href="">Calendar</a></li>
-                        <li><a href="">Issue tracker</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">Article</a></li>
-                        <li><a href="">FAQ</a></li>
-                        <li><a href="">Timeline</a></li>
-                        <li><a href="">Pin board</a></li>
-                        #}
+
                     </ul>
                 </li>
 
-                <li class="{% if current_route == "admin_quizz_index" or current_route == "admin_quizz_new" or current_route == "admin_quizz_edit"
-                or current_route == "admin_quizz_show"
-                or current_route == "admin_quizzquestion_show" or current_route == "admin_quizzquestion_edit" or current_route == "admin_quizzquestion_new"
-                or current_route == "admin_quizz_show"
-                or current_route == "admin_quizzresponse_show" or current_route == "admin_quizzresponse_edit"
-                or current_route == "admin_quizzresponse_new" %}active{% endif %}">
-                    <a href=""><i class="fa fa-question"></i>
-                        <span class="nav-label">Quizz</span>
+                <li class="{{ current_route == "app_cas_index" or current_route == "app_cas_new"  ? 'active' : '' }}">
+                    <a href="{{ path('app_cas_index') }}"><i class="fa fa-stethoscope fa-2x"></i>
+                        <span class="nav-label">Cas</span>
                     </a>
                 </li>
                 <li class="{% if current_route == "admin_reglement_index" or current_route == "admin_reglement_new"

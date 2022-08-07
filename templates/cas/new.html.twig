@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Un nouveau cas {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h1>Ajouter un cas</h1>
+                </div>
+
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="form-group col-sm-6 {% if form_errors(form.intitule) %}has-error{% endif %}">
+                        <label>Intitulé <span class="text-danger">*</span> <small class="text-muted">Diagnostic ou principal symptôme</small></label>
+                        {{ form_widget(form.intitule, {
+                            'attr' : {
+                                'class' : 'form-control',
+                                'placeholder' : "Diagnostic ou principal symptôme"
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.intitule) }}</small>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-3 {% if form_errors(form.patient) %}has-error{% endif %}">
+                        <label>Concerné(e) <span class="text-danger">*</span></label>
+                        {{ form_widget(form.patient, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.patient) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3 {% if form_errors(form.dateDebutCasAt) %}has-error{% endif %}">
+                        <label>Depuis le <span class="text-danger">*</span></label>
+                        {{ form_widget(form.dateDebutCasAt, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.dateDebutCasAt) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6 {% if form_errors(form.histoireMaladie) %}has-error{% endif %}">
+                        <label>Histoire Maladie <span class="text-danger">*</span></label>
+                        {{ form_widget(form.histoireMaladie, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.histoireMaladie) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6 {% if form_errors(form.remarques) %}has-error{% endif %}">
+                        <label>Remarques <span class="text-muted">*</span></label>
+                        {{ form_widget(form.remarques, {
+                            'attr' : {
+                                'class' : 'form-control'
+                            }
+                        }) }}
+                        <div class="form-error">
+                            <small class="text-danger">{{ form_errors(form.remarques) }}</small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-save"></i> Enregistrer</button>
+                        {% if app.request.get('id_patient') %}
+                            <a href="{{ path('app_patient_show', {id : app.request.get('id_patient')}) }}" type="button"
+                               class="btn btn-default waves-effect waves-light pull-right">Annuler
+                            </a>
+                        {% else %}
+                            <a href="{{ path("app_cas_index") }}" type="button"
+                               class="btn btn-default waves-effect waves-light pull-right">Annuler
+                            </a>
+                        {% endif %}
+                    </div>
+                    {{ form_end(form) }}
+
+                    <div class="col-md-12">
+                        {% if app.request.get('id_patient') %}
+                            <a href="{{ path('app_patient_show', {id : app.request.get('id_patient')}) }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+                        {% else %}
+                            <a href="{{ path('app_cas_index') }}" class="btn btn-xs btn-primary m-t-lg"><< Retour</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

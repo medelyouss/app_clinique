@@ -31,6 +31,7 @@ class PatientController extends AbstractController
      */
     public function new(Request $request, PatientRepository $patientRepository): Response
     {
+
         $patient = new Patient();
         $patient->setCreatedAt(new \DateTime('now'));
         $form = $this->createForm(PatientType::class, $patient);
@@ -55,8 +56,10 @@ class PatientController extends AbstractController
      */
     public function show(Patient $patient): Response
     {
+        $cas = $patient->getCas();
         return $this->render('patient/show.html.twig', [
-            'patient' => $patient,
+            'patient'       => $patient,
+            'cas'           => $cas,
         ]);
     }
 

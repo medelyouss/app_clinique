@@ -3,64 +3,156 @@
 {% block title %}Patient{% endblock %}
 
 {% block body %}
-    <h1>Patient</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ patient.id }}</td>
-            </tr>
-            <tr>
-                <th>Nomprenom</th>
-                <td>{{ patient.nomprenom }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissanceAt</th>
-                <td>{{ patient.dateNaissanceAt ? patient.dateNaissanceAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td>{{ patient.sexe }}</td>
-            </tr>
-            <tr>
-                <th>Domicile</th>
-                <td>{{ patient.domicile }}</td>
-            </tr>
-            <tr>
-                <th>Tel</th>
-                <td>{{ patient.tel }}</td>
-            </tr>
-            <tr>
-                <th>Profession</th>
-                <td>{{ patient.profession }}</td>
-            </tr>
-            <tr>
-                <th>NumeroIdentification</th>
-                <td>{{ patient.numeroIdentification }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ patient.createdAt ? patient.createdAt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Observations</th>
-                <td>{{ patient.observations }}</td>
-            </tr>
-            <tr>
-                <th>Situationmaritale</th>
-                <td>{{ patient.situationmaritale }}</td>
-            </tr>
-            <tr>
-                <th>Tel N2</th>
-                <td>{{ patient.tel2 }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
 
-    <a href="{{ path('app_patient_index') }}">back to list</a>
+        {% for message in app.flashes('success') %}
+        <div class="col-lg-12">
+            <div class="alert alert-success alert-dismissable ">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-lg-6">
+            <div class="social-feed-box">
+                <div class="col-md-12">
+                    <div class="profile-image m-t-lg">
+                        <img src="{{ asset('img/avatar.jpg') }}" class="img-circle circle-border m-b-md" alt="profile">
+                    </div>
+                    <div class="profile-info">
+                        <div class="m-t-md m-b-md">
+                        <div>
+                            <h2 class="no-margins">
+                                {{ patient.nomPrenom }}
+                            </h2>
+                            <h4>Profession : {{ patient.profession ? patient.profession : '~' }}</h4>
+                            <h4>Matricule : {{ patient.numeroIdentification ? patient.numeroIdentification : '~' }}</h4>
+                            <small>
+                                Sexe : {{ patient.sexe | title }}
+                                <br/>
+                                Date de naissance : {{ patient.dateNaissanceAt | date('d/m/Y') }} - <strong>{{ patient.getAge() }}</strong> ans
+                                <br/>
+                                Situation Marital : {{ patient.situationmaritale }}
+                            </small>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <table class="table small m-b-xs">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <strong>Tel : </strong> {{ patient.tel }}
+                            </td>
+                            <td>
+                                <strong>Tel 2 : </strong> {{ patient.tel2 ? patient.tel2 : '~' }}
+                            </td>
 
-    <a href="{{ path('app_patient_edit', {'id': patient.id}) }}">edit</a>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    {{ include('patient/_delete_form.html.twig') }}
+                <div class="social-body">
+                <p>
+                    {{ patient.domicile }}
+                </p>
+                <p class="text-navy">
+                    <small>
+                        Fiche crée le : {{ patient.createdAt | date('d/m/Y') }}
+                        <br/>
+                        {% if patient.observations %}
+                        Observations : {{ patient.observations | raw }}
+                        {% endif %}
+                    </small>
+
+                </p>
+
+
+                <a href="{{ path('app_patient_index') }}" class="btn btn-primary btn-md btn-outline"><< Liste des patients</a>
+
+                <a href="{{ path('app_patient_edit', {'id': patient.id}) }}" class="btn btn-warning btn-xs btn-circle btn-outline">
+                    <i class="fa fa-edit"></i>
+                </a>
+
+                {% if is_granted('ROLE_SUPERADMIN') %}
+                    <span class="pull-right">
+                    {{ include('patient/_delete_form.html.twig') }}
+                    </span>
+                {% endif %}
+
+            </div>
+            </div>
+        </div>
+        {# Antécédants antecedant #}
+        {% include 'patient/_antecedants.html.twig' %}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Cas et Visites</h5>
+                <span class="label label-primary">{{ patient.numeroIdentification }} - {{ patient.nomPrenom }}</span>
+                <div class="ibox-tools">
+                    <a href="{{ path('app_cas_new', {'id_patient' : patient.id }) }}" class="btn btn-xs btn-success btn-outline"><i class="fa fa-save"></i> Enregistrer un nouveau cas</a>
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="ibox-content inspinia-timeline">
+
+                {% for ca in cas %}
+                <div class="timeline-item">
+                    <div class="row">
+                        <div class="col-xs-3 date_medelcustom">
+                            <i class="fa fa-angle-double-right"></i>
+                            Debut du cas le : {{ ca.createdAt | date('d/m/Y') }}
+                            <br/>
+                            <a href="{{ path('app_cas_edit', {id:ca.id}) }}" class="text-navy btn btn-xs btn-default">
+                                <i class="fa fa-edit"></i> Modifier ce cas
+                            </a>
+                        </div>
+                        <div class="col-xs-7 content no-top-border">
+                            <p class="m-b-xs"><strong>{{ ca.intitule }}</strong> -
+                                <a href="{{ path('app_visite_new', {'id_cas': ca.id}) }}" class="btn btn-xs btn-outline btn-success">
+                                    Commencer une visite
+                                </a>
+                                <a href="" class="btn btn-xs btn-outline btn-success">Commencer une hospitalisation</a>
+                                <br/>
+
+                                {{ ca.histoireMaladie | raw }}
+                            </p>
+
+                            <ul>
+                                <li class="list-unstyled text-navy"><strong>Visites</strong></li>
+                                {% for visite in ca.getVisites() %}
+                                <li>
+                                    <a href="{{ path('app_visite_edit', {id:visite.id}) }}" class="btn btn-xs btn-circle btn-warning btn-outline"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{ path('app_visite_show', {id:visite.id}) }}" class="btn btn-xs btn-circle btn-success btn-outline"><i class="fa fa-eye"></i></a>
+                                    {{ loop.index }}) [{{ visite.dateVisiteAt | date('d/m/Y') }}] - {{ visite.motif }}
+                                </li>
+                                    {% else %}
+                                    <li class="text-danger">
+                                        Aucune visite enregistée!
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}

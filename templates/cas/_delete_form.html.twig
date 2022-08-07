@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_cas_delete', {'id': ca.id}) }}"
+      onsubmit="return confirm('Action irreversible, voulez-vous continuer?');" style="display: inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ca.id) }}">
+    <button class="btn btn-xs btn-circle btn-danger btn-outline"><i class="fa fa-trash"></i> </button>
+</form>
